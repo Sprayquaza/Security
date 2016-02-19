@@ -13,7 +13,7 @@ namespace MvcLoginApp.Models
         public int UserId { get; set; }
 
         [Required(ErrorMessage = "Email is required!")]
-        [RegularExpression(@"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z", ErrorMessage = "Enter a valid email address")]
+        [DataType(DataType.EmailAddress, ErrorMessage = "Enter a valid email address")]
         public string Email { get; set; }
 
         [Required(ErrorMessage = "Username is required!")]
@@ -26,5 +26,9 @@ namespace MvcLoginApp.Models
         [Compare("Password", ErrorMessage = "Please confirm your password.")]
         [DataType(DataType.Password)]
         public string ConfirmPassword { get; set; }
+
+        public string Permission = "Default";
+        string password = "aA1%";
+        HashSet<char> specialCharacters = new HashSet<char>() { '%', '$', '#' };
     }
 }

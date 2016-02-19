@@ -10,10 +10,6 @@ namespace MvcLoginApp.Controllers
     public class AccountController : Controller
     {
         // GET: Account
-        public ActionResult Index()
-        {
-            return View();
-        }
         public ActionResult Register()
         {
             return View();

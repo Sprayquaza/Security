@@ -21,14 +21,15 @@ namespace MvcLoginApp.Models
 
         [Required(ErrorMessage = "Password is required!")]
         [DataType(DataType.Password)]
+        [RegularExpression(@"^(?=(.*\d){2})(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z\d]).{8,}$" , ErrorMessage = "Password must have atleast 1 number, 1 special character and 1 uppercase character!")]
         public string Password { get; set; }
         
-        [Compare("Password", ErrorMessage = "Please confirm your password.")]
+        [Compare("Password", ErrorMessage = "Passwords do not match!")]
         [DataType(DataType.Password)]
         public string ConfirmPassword { get; set; }
 
+        public byte[] Salt { get; set; }
+
         public string Permission = "Default";
-        string password = "aA1%";
-        HashSet<char> specialCharacters = new HashSet<char>() { '%', '$', '#' };
     }
 }

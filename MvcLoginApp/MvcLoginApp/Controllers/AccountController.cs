@@ -93,6 +93,16 @@ namespace MvcLoginApp.Controllers
                 return RedirectToAction("Login");
             }
         }
+        public ActionResult Forgot()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Forgot(string email)
+        {
+
+            return View("SentEmail");
+        }
 
         public string HashPassword(string password, byte[] salt)
         {

@@ -66,8 +66,10 @@ namespace MvcLoginApp.Controllers
         [HttpPost]
         public ActionResult Login(UserAccount user)
         {
+           
             using (OurDbContext db = new OurDbContext())
             {
+                
                 var usr = db.userAccount.Where(u => u.Username == user.Username && u.Password == user.Password).FirstOrDefault();
                 if (user != null)
                 {
@@ -100,7 +102,13 @@ namespace MvcLoginApp.Controllers
         [HttpPost]
         public ActionResult Forgot(string email)
         {
+            string code = GenerateForgotCode();
+            byte[] salt = GenerateSalt();
+            string Hash = HashPassword(code, salt);
+            using(OurDbContext db = new OurDbContext())
+            {
 
+            }
             return View("SentEmail");
         }
 
@@ -118,6 +126,7 @@ namespace MvcLoginApp.Controllers
             string savedPasswordHash = Convert.ToBase64String(hashBytes);
             return savedPasswordHash;
         }
+
         public byte [] GenerateSalt()
         {
             //Generate a cryptographic random number.
@@ -127,6 +136,18 @@ namespace MvcLoginApp.Controllers
 
             // Return a Base64 string representation of the random number.
             return buff;
+        }
+        
+        public string GenerateForgotCode() { 
+
+            RNGCryptoServiceProvider rng = new RNGCryptoServiceProvider();
+            byte[] buff = new byte[6];
+            rng.GetBytes(buff);
+
+            string bytes = Convert.ToBase64String(buff);
+            return bytes;
+
+            
         }
     }
 }

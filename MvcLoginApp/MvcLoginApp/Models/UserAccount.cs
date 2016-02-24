@@ -31,5 +31,7 @@ namespace MvcLoginApp.Models
         public byte[] Salt { get; set; }
 
         public string Permission = "Default";
+        
+        public string ForgotCode { get; set; }
     }
 }

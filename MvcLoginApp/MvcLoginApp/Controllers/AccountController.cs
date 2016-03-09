@@ -47,11 +47,22 @@ namespace MvcLoginApp.Controllers
                 string hash = HashPassword(account.Password, salt);
                 using(OurDbContext db = new OurDbContext())
                 {
-                    account.Password = hash;
-                    account.ConfirmPassword = hash;
-                    account.Salt = salt;
-                    db.userAccount.Add(account);
-                    db.SaveChanges();
+                    var mail = db.userAccount.Where(u => u.Email == account.Email).FirstOrDefault();
+                    var usrName = db.userAccount.Where(u => u.Username == account.Username).FirstOrDefault();
+                    if (usrName != null || mail != null)
+                    {
+                        ModelState.Clear();
+                        ViewBag.Message = "Gebruikersnaam of email is al in gebruik!";
+                        return View("Register");
+                    }
+                    else
+                    {
+                        account.Password = hash;
+                        account.ConfirmPassword = hash;
+                        account.Salt = salt;
+                        db.userAccount.Add(account);
+                        db.SaveChanges();
+                    }
                 }
                 ModelState.Clear();
                 ViewBag.Message = account.Username + " succesfully registered.";

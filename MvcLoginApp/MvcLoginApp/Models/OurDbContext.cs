@@ -10,5 +10,7 @@ namespace MvcLoginApp.Models
     {
         public DbSet<UserAccount> userAccount { get; set; }
         public DbSet<Product> product { get; set; }
+
+
     }
 }

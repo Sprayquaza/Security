@@ -138,6 +138,7 @@
       <DependentUpon>201603090852380_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Order.cs" />
     <Compile Include="Models\OurDbContext.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\UserAccount.cs" />
